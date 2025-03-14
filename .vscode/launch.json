@@ -1,0 +1,39 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": ".NET Core Launch (console)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/src/NorthwindStore.Tests.UnitTests/bin/Debug/net6.0/NorthwindStore.Tests.UnitTests.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/src/NorthwindStore.Tests.UnitTests",
+            "console": "internalConsole",
+            "stopAtEntry": false
+        },
+        {
+            "name": ".NET Core Attach",
+            "type": "coreclr",
+            "request": "attach"
+        },
+        {
+            "name": "Docker .NET Launch",
+            "type": "docker",
+            "request": "launch",
+            "preLaunchTask": "docker-run: debug",
+            "netCore": {
+                "appProject": "${workspaceFolder}/src/NorthwindStore.Tests.UnitTests/NorthwindStore.Tests.UnitTests.csproj"
+            }
+        },
+        {
+            "name": "Docker .NET Launch release",
+            "type": "docker",
+            "request": "launch",
+            "preLaunchTask": "docker-run: release",
+            "netCore": {
+                "appProject": "${workspaceFolder}/NorthwindStore.App/NorthwindStore.App.csproj"
+            }
+        }
+    ]
+}
