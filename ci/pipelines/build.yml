@@ -10,7 +10,7 @@ pool:
   vmImage: ubuntu-latest
 
 variables:
-  registryName: "<REGISTRY_NAME>"
+  registryName: "<REGISTRY_NAME>.azurecr.io"
 
 steps:
 - task: DockerCompose@1
