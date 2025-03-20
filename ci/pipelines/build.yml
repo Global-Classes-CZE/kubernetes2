@@ -63,13 +63,13 @@ steps:
 - task: Docker@2
   inputs:
     command: 'tag'
-    arguments: 'northwindstoreapp:latest $(registryName)/northwindstore/app:latest'
+    arguments: 'northwindstoreapp:latest $(RegistryName)/northwindstore/app:latest'
     addPipelineData: false
     addBaseImageData: false
 - task: Docker@2
   inputs:
     command: 'tag'
-    arguments: 'northwindstoreapp:latest $(registryName)/northwindstore/app:$(Build.BuildId)'
+    arguments: 'northwindstoreapp:latest $(RegistryName)/northwindstore/app:$(Build.BuildId)'
     addPipelineData: false
     addBaseImageData: false
 - task: Docker@2
