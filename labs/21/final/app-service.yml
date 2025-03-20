@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-service
+  labels:
+    app: northwindstore
+    component: app
+spec:
+  selector:
+    app: northwindstore
+    component: app
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80

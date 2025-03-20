@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-deployment
+  labels:
+    app: northwindstore
+    component: app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: northwindstore
+      component: app
+  template:
+    metadata:
+      labels:
+        app: northwindstore
+        component: app
+    spec:
+      containers:
+      - name: northwindstore-app
+        image: dotnetcollege.azurecr.io/northwindstore/app:1.0
+        ports:
+        - containerPort: 80
+        env:
+        - name: ConnectionStrings__DB
+          valueFrom:
+            secretKeyRef:
+              name: app
+              key: ConnectionStrings__DB
+        volumeMounts:
+        - mountPath: "/app/wwwroot/images"
+          name: app-files-volume
+      volumes:
+        - name: app-files-volume
+          persistentVolumeClaim:
+            claimName: app-files
