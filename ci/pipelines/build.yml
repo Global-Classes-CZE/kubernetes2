@@ -43,7 +43,7 @@ steps:
   displayName: Run Integration tests
   inputs:
     command: 'run'
-    arguments: '--rm -v $(Build.ArtifactStagingDirectory)/testresults:/src/testresults -e "ConnectionStrings__DB=Data Source=tcp:northwindstore.db,1433; Initial Catalog=Northwind; User ID=sa; Password=DevPass_1" --network northwindstore-dev northwindstoretestsintegrationtests:$(Build.BuildId)'
+    arguments: '--rm -v $(Build.ArtifactStagingDirectory)/testresults:/src/testresults -e "ConnectionStrings__DB=Data Source=tcp:northwindstore.db,1433; Initial Catalog=Northwind; User ID=sa; Password=DevPass_1" --network northwindstore-dev northwindstoretestsintegrationtest:$(Build.BuildId)'
   continueOnError: true
 
 
