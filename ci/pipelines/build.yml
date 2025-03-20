@@ -43,8 +43,21 @@ steps:
   displayName: Run Integration tests
   inputs:
     command: 'run'
-    arguments: '--rm -v $(Build.ArtifactStagingDirectory)/testresults:/src/testresults -e "ConnectionStrings__DB=Data Source=tcp:northwindstore.db,1433; Initial Catalog=Northwind; User ID=sa; Password=DevPass_1" --network northwindstore-dev northwindstoretestsintegrationtests:$(Build.BuildId)'
+    arguments: '--rm -v $(Build.ArtifactStagingDirectory)/testresults:/src/testresults -e "ConnectionStrings__DB=Data Source=tcp:northwindstore.db,1433; Initial Catalog=Northwind; User ID=sa; Password=DevPass_1" --network northwindstore-dev northwindstoretestsintegrationtest:$(Build.BuildId)'
   continueOnError: true
-
-
+- task: PublishTestResults@2
+  inputs:
+    testResultsFormat: 'VSTest'
+    testResultsFiles: '*.trx'
+    searchFolder: '$(Build.ArtifactStagingDirectory)/testresults'
+    failTaskOnFailedTests: true
+- task: DockerCompose@1
+  inputs:
+    containerregistrytype: "Azure Container Registry"
+    dockerComposeFile: src/docker-compose.yml
+    additionalDockerComposeFiles: ../ci/docker-compose.ci.yml
+    projectName: "northwindstore"
+    action: "Run a Docker Compose command"
+    dockerComposeCommand: "down"
+  condition: always()
 
