@@ -48,7 +48,7 @@ steps:
 #  inputs:
 #    arguments: --rm -e "ConnectionStrings__DB=Data Source=tcp:northwindstore.db,1433; Initial Catalog=Northwind; User ID=sa; Password=DevPass_1" --network northwindstore-dev northwindstoretestsintegrationtests:$(Build.BuildId)
 #    containerName: "northwindstoretestsintegrationtests"
-#    dockerFile: src/NorthwindStore.Tests.IntegrationTests/Dockerfile
+    dockerFile: src/NorthwindStore.Tests.IntegrationTests/Dockerfile
 
 
 
