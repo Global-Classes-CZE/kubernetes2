@@ -19,17 +19,31 @@ steps:
     action: "Run a Docker Compose command"
     dockerComposeCommand: "up"
     arguments: --build --force-recreate -d
-- task: Docker@1
-  inputs:
-    command: "build"
-    containerName: "northwindstoretestsunittests"
-    dockerFile: src/NorthwindStore.Tests.UnitTests/Dockerfile
-    buildContext: "src"
-    imageName: $(Build.BuildId)
 - task: Docker@2
+  displayName: Build Unit tests
   inputs:
-    command: "run"
-    arguments: --rm northwindstoretestsunittests:$(Build.BuildId)
+    repository: 'northwindstoretestsunittests'
+    command: 'build'
+    Dockerfile: 'src/NorthwindStore.Tests.UnitTests/Dockerfile'
+    buildContext: 'src'
+- task: Docker@2
+  displayName: Run Unit tests
+  inputs:
+    command: 'run'
+    arguments: '--rm northwindstoretestsunittests:$(Build.BuildId)'
+- task: Docker@2
+  displayName: Build Integration tests
+  inputs:
+    repository: 'northwindstoretestsintegrationtest'
+    command: 'build'
+    Dockerfile: 'src/NorthwindStore.Tests.IntegrationTests/Dockerfile'
+    buildContext: 'src'
+- task: Docker@2
+  displayName: Run Integration tests
+  inputs:
+    command: 'run'
+    arguments: '--rm northwindstoretestsunittests:$(Build.BuildId)'
+
 - task: Docker@2
   inputs:
     arguments: --rm -e "ConnectionStrings__DB=Data Source=tcp:northwindstore.db,1433; Initial Catalog=Northwind; User ID=sa; Password=DevPass_1" --network northwindstore-dev northwindstoretestsintegrationtests:$(Build.BuildId)
